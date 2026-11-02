@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      plant_scans: {
+        Row: {
+          confidence: number | null
+          created_at: string
+          disease_name: string
+          id: string
+          image_url: string | null
+          plant_name: string | null
+          prevention_advice: string | null
+          severity: string | null
+          treatment_advice: string | null
+          user_id: string
+        }
+        Insert: {
+          confidence?: number | null
+          created_at?: string
+          disease_name?: string
+          id?: string
+          image_url?: string | null
+          plant_name?: string | null
+          prevention_advice?: string | null
+          severity?: string | null
+          treatment_advice?: string | null
+          user_id: string
+        }
+        Update: {
+          confidence?: number | null
+          created_at?: string
+          disease_name?: string
+          id?: string
+          image_url?: string | null
+          plant_name?: string | null
+          prevention_advice?: string | null
+          severity?: string | null
+          treatment_advice?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
