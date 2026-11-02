@@ -1,73 +1,170 @@
-# Welcome to your Lovable project
+# Green Leaf AI
 
-## Project info
+Create a beautiful modern web application UI called **AI Powered Plant Health Assistant** designed for farmers. The application helps farmers detect plant diseases using AI and provides solutions in simple language.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Design Theme:
 
-## How can I edit this code?
+* Nature inspired design
 
-There are several ways of editing your application.
+* Green agriculture color palette
 
-**Use Lovable**
+* Shades of green, light earth tones, and white
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+* Plant and leaf inspired icons
 
-Changes made via Lovable will be committed automatically to this repo.
+* Clean, modern, and friendly interface
 
-**Use your preferred IDE**
+* Mobile-first responsive layout
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+UI Style:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Smooth animations and transitions
 
-Follow these steps:
+* Rounded cards and soft shadows
+
+* Simple farmer-friendly interface
+
+* Large buttons and icons
+
+* Minimal text with clear visuals
+
+Main Pages:
+
+1. Welcome Screen
+
+* Beautiful background with plants or leaves
+
+* App logo and title "AI Powered Plant Health Assistant"
+
+* Short tagline: "Detect Plant Diseases and Protect Your Crops"
+
+* Start button
+
+2. Language Selection
+
+   Allow farmers to choose their preferred language:
+
+* English
+
+* Hindi
+
+* Telugu
+
+Use large buttons with clear icons.
+
+3. Home Dashboard
+
+   Create a clean dashboard with large feature cards:
+
+Cards should include:
+
+* Scan Plant Disease (camera icon)
+
+* Upload Plant Image
+
+* Ask AI Assistant
+
+* Weather Advice
+
+* Crop History
+
+Add small plant icons and subtle animations.
+
+4. Plant Disease Scanner Page
+
+   Include:
+
+* Camera capture button
+
+* Upload plant image option
+
+* Image preview
+
+* Analyze Plant button
+
+Add a scanning animation effect when the image is being analyzed.
+
+5. AI Diagnosis Result Page
+
+   Display results in clean information cards:
+
+Information to show:
+
+* Plant name
+
+* Detected disease
+
+* Severity level (Low, Medium, High)
+
+* Treatment recommendation
+
+* Prevention tips
+
+Use color indicators:
+
+* Green for healthy
+
+* Yellow for moderate
+
+* Red for severe disease
+
+6. Weather Advisory Page
+
+   Display weather information with icons:
+
+* Temperature
+
+* Humidity
+
+* Rainfall prediction
+
+* AI farming advice
+
+7. Voice AI Assistant
+
+   Add a microphone button where farmers can ask questions using voice.
+
+Include animated listening indicator.
+
+8. Crop History Page
+
+   Show previously scanned plants with image thumbnails and diagnosis results.
+
+9. Government Schemes Page
+
+   Display agriculture schemes and subsidies with simple explanation cards.
+
+Visual Design Details:
+
+* Use leaf icons, plant illustrations, and nature imagery
+
+* Use a green gradient header
+
+* Add smooth hover effects and page transitions
+
+* Ensure UI is very simple so farmers can easily use it
+
+Goal:
+
+Design a visually appealing, farmer-friendly AI agriculture assistant interface that feels modern, clean, and easy to understand. The UI should clearly guide farmers to scan plants, detect diseases, and receive helpful solutions.
+
+This project was built with [Lovable](https://lovable.dev).
+
+## Build with Lovable
+
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/7878a385-32d0-495b-9c21-a69e86f53071).
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
+git clone <this-repository-url>
+cd <repository-name>
 npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
