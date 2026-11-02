@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Welcome from "./pages/Welcome";
 import LanguageSelect from "./pages/LanguageSelect";
+import Auth from "./pages/Auth";
 import HomeDashboard from "./pages/HomeDashboard";
 import PlantScanner from "./pages/PlantScanner";
 import DiagnosisResult from "./pages/DiagnosisResult";
@@ -25,9 +26,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/language" element={<LanguageSelect />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/home" element={<HomeDashboard />} />
           <Route path="/scanner" element={<PlantScanner />} />
-          <Route path="/diagnosis" element={<DiagnosisResult />} />
+          <Route path="/diagnosis/:id" element={<DiagnosisResult />} />
           <Route path="/weather" element={<WeatherAdvisory />} />
           <Route path="/history" element={<CropHistory />} />
           <Route path="/schemes" element={<GovSchemes />} />

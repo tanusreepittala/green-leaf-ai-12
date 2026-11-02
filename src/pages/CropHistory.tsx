@@ -1,17 +1,45 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Leaf, AlertTriangle, CheckCircle } from "lucide-react";
+import { ArrowLeft, Leaf, AlertTriangle, CheckCircle, Camera } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import type { Database } from "@/integrations/supabase/types";
 
-const history = [
-  { plant: "Tomato", disease: "Leaf Rust", severity: "High", date: "Mar 12, 2026", icon: AlertTriangle, color: "text-destructive bg-destructive/10" },
-  { plant: "Rice", disease: "Blast Disease", severity: "Medium", date: "Mar 8, 2026", icon: AlertTriangle, color: "text-warning bg-warning/10" },
-  { plant: "Wheat", disease: "Healthy", severity: "Low", date: "Mar 3, 2026", icon: CheckCircle, color: "text-success bg-success/10" },
-  { plant: "Cotton", disease: "Whitefly Infestation", severity: "High", date: "Feb 25, 2026", icon: AlertTriangle, color: "text-destructive bg-destructive/10" },
-];
+type Scan = Database["public"]["Tables"]["plant_scans"]["Row"];
 
 const CropHistory = () => {
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
+  const [scans, setScans] = useState<Scan[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+    supabase
+      .from("plant_scans")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data, error }) => {
+        if (!error && data) setScans(data);
+        setLoading(false);
+      });
+  }, [user, authLoading, navigate]);
+
+  const severityIcon = (severity: string | null) =>
+    severity === "High" ? AlertTriangle : severity === "Medium" ? AlertTriangle : CheckCircle;
+
+  const severityColor = (severity: string | null) =>
+    severity === "High"
+      ? "text-destructive bg-destructive/10"
+      : severity === "Medium"
+        ? "text-warning bg-warning/10"
+        : "text-success bg-success/10";
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -25,33 +53,58 @@ const CropHistory = () => {
       </div>
 
       <div className="px-5 -mt-4 space-y-3">
-        {history.map((h, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="surface-card-hover p-5 flex items-center gap-4 cursor-pointer"
-            onClick={() => navigate("/diagnosis")}
-          >
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${h.color}`}>
-              <h.icon className="w-6 h-6" />
+        {loading && (
+          <div className="surface-card p-6 text-center text-muted-foreground">
+            Loading your scans...
+          </div>
+        )}
+
+        {!loading && scans.length === 0 && (
+          <div className="surface-card p-8 flex flex-col items-center text-center gap-3">
+            <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center">
+              <Camera className="w-7 h-7 text-accent" />
             </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <Leaf className="w-4 h-4 text-accent" />
-                <p className="font-bold text-foreground">{h.plant}</p>
+            <p className="font-bold text-foreground">No scans yet</p>
+            <p className="text-sm text-muted-foreground">
+              Scan a plant to see its health history here.
+            </p>
+          </div>
+        )}
+
+        {scans.map((scan, i) => {
+          const Icon = severityIcon(scan.severity);
+          return (
+            <motion.div
+              key={scan.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className="surface-card-hover p-5 flex items-center gap-4 cursor-pointer"
+              onClick={() => navigate(`/diagnosis/${scan.id}`)}
+            >
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${severityColor(scan.severity)}`}>
+                <Icon className="w-6 h-6" />
               </div>
-              <p className="text-sm text-muted-foreground mt-0.5">{h.disease}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-xs text-muted-foreground">{h.date}</p>
-              <p className={`text-xs font-semibold mt-1 ${h.severity === "High" ? "text-destructive" : h.severity === "Medium" ? "text-warning" : "text-success"}`}>
-                {h.severity}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <Leaf className="w-4 h-4 text-accent" />
+                  <p className="font-bold text-foreground truncate">{scan.plant_name ?? "Unknown plant"}</p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-0.5 truncate">{scan.disease_name}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-xs text-muted-foreground">
+                  {new Date(scan.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                </p>
+                <p className={`text-xs font-semibold mt-1 ${
+                  scan.severity === "High" ? "text-destructive" : scan.severity === "Medium" ? "text-warning" : "text-success"
+                }`}>
+                  {scan.severity ?? "Low"}
+                </p>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       <BottomNav />
